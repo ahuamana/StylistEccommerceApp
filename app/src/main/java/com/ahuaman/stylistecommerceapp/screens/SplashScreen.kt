@@ -40,8 +40,6 @@ fun SplashScreen() {
         ) {
 
 
-        KeyStore
-
         Image(
             modifier = Modifier
                 .height(222.dp)
