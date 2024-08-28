@@ -22,6 +22,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.ahuaman.stylistecommerceapp.R
+import java.security.KeyStore
 
 
 @Composable
@@ -38,6 +39,8 @@ fun SplashScreen() {
         horizontalAlignment = Alignment.CenterHorizontally,
         ) {
 
+
+        KeyStore
 
         Image(
             modifier = Modifier
