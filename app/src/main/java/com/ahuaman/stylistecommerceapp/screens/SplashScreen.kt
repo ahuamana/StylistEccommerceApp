@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -22,14 +23,22 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.ahuaman.stylistecommerceapp.R
+import kotlinx.coroutines.delay
 import java.security.KeyStore
 
 
 @Composable
-fun SplashScreen() {
+fun SplashScreen(
+    onTimeout: () -> Unit
+) {
 
     //add image logo from res/drawable
     val imgLogo = painterResource(id = R.drawable.ic_dress_new)
+
+    LaunchedEffect(key1 = true) {
+        delay(3000)
+        onTimeout()
+    }
 
     Column(
         modifier = Modifier
@@ -38,7 +47,6 @@ fun SplashScreen() {
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally,
         ) {
-
 
         Image(
             modifier = Modifier
@@ -72,5 +80,7 @@ fun SplashScreen() {
 @Preview
 @Composable
 fun SplashScreenPreview() {
-    SplashScreen()
+    SplashScreen(
+        onTimeout = {}
+    )
 }
