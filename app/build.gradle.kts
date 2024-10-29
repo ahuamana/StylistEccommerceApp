@@ -2,6 +2,9 @@
 plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.kotlinAndroid)
+    alias(libs.plugins.compose.compiler)
+    //Kotlin Serialization for Safe Args
+    alias(libs.plugins.kotlin.serialization.json)
 }
 
 android {
@@ -40,9 +43,6 @@ android {
     buildFeatures {
         compose = true
     }
-    composeOptions {
-        kotlinCompilerExtensionVersion = "1.4.3"
-    }
     packaging {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
@@ -67,4 +67,8 @@ dependencies {
     androidTestImplementation(libs.ui.test.junit4)
     debugImplementation(libs.ui.tooling)
     debugImplementation(libs.ui.test.manifest)
+
+    //Navigation Safe
+    implementation(libs.androidx.navigation.compose)
+    implementation(libs.kotlin.serialization.json)
 }
