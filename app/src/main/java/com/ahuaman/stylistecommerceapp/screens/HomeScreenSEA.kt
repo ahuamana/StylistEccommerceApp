@@ -10,9 +10,11 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -130,7 +132,9 @@ fun HomeScreenSEA(modifier: Modifier = Modifier) {
 
         Column(modifier.fillMaxWidth()) {
             val list = MockListCategory.listCategory()
-            LazyRow {
+            LazyRow(
+                state = rememberLazyListState()
+            ) {
                 items(list) { item ->
                     CustomItemCategory(
                         icon = item.icon,
