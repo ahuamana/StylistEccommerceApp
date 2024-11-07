@@ -10,11 +10,13 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.foundation.lazy.staggeredgrid.LazyVerticalStaggeredGrid
+import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridCells
+import androidx.compose.foundation.lazy.staggeredgrid.items
+import androidx.compose.foundation.lazy.staggeredgrid.rememberLazyStaggeredGridState
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -36,7 +38,9 @@ import androidx.compose.ui.unit.sp
 import com.ahuaman.stylistecommerceapp.R
 import com.ahuaman.stylistecommerceapp.components.CustomButton
 import com.ahuaman.stylistecommerceapp.components.CustomItemCategory
+import com.ahuaman.stylistecommerceapp.components.CustomItemShop
 import com.ahuaman.stylistecommerceapp.data.MockListCategory
+import com.ahuaman.stylistecommerceapp.data.MockListItemShop
 
 @Composable
 fun HomeScreenSEA(modifier: Modifier = Modifier) {
@@ -130,11 +134,9 @@ fun HomeScreenSEA(modifier: Modifier = Modifier) {
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        Column(modifier.fillMaxWidth()) {
+        Column(Modifier.fillMaxWidth()) {
             val list = MockListCategory.listCategory()
-            LazyRow(
-                state = rememberLazyListState()
-            ) {
+            LazyRow {
                 items(list) { item ->
                     CustomItemCategory(
                         icon = item.icon,
@@ -168,9 +170,24 @@ fun HomeScreenSEA(modifier: Modifier = Modifier) {
                     color = Color(0xFF8F959E),
                 )
             )
+
+
         }
 
         //Items shop
+
+        val list = MockListItemShop.getDefaultList()
+
+        LazyVerticalStaggeredGrid(
+            columns = StaggeredGridCells.Fixed(2),
+            state = rememberLazyStaggeredGridState(),
+        ) {
+            items(list) { item ->
+                CustomItemShop(
+                    itemShop = item
+                )
+            }
+        }
 
     }
 }
