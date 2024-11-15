@@ -40,7 +40,11 @@ import androidx.compose.ui.unit.sp
 import com.ahuaman.stylistecommerceapp.R
 
 @Composable
-fun OnboardingScreen(modifier: Modifier = Modifier) {
+fun OnboardingScreen(
+    modifier: Modifier = Modifier,
+    onSkip: () -> Unit,
+    onContinue: () -> Unit
+) {
 
     val painter = painterResource(id = R.drawable.shopping_persons)
 
@@ -65,14 +69,21 @@ fun OnboardingScreen(modifier: Modifier = Modifier) {
             )
             Spacer(modifier = Modifier.height(10.dp))
             Column(modifier = Modifier.fillMaxWidth().padding(15.dp)) {
-                CustomCardOnboarding()
+                CustomCardOnboarding(
+                    onSkip = onSkip,
+                    onContinue = onContinue
+                )
             }
         }
     }
 }
 
 @Composable
-fun CustomCardOnboarding(modifier: Modifier = Modifier) {
+fun CustomCardOnboarding(
+    modifier: Modifier = Modifier,
+    onSkip: () -> Unit,
+    onContinue: () -> Unit
+) {
 
     var selectedOption by remember { mutableStateOf(1) }
 
@@ -108,10 +119,13 @@ fun CustomCardOnboarding(modifier: Modifier = Modifier) {
                 selected = selectedOption,
                 onSelected = { selected ->
                     selectedOption = selected
+                    onContinue()
                 }
             )
             Button(
-                onClick = {},
+                onClick = {
+                    onSkip()
+                },
                 colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent)) {
                 Text(text = "Skip", color = Color(0xFF8F959E))
             }
@@ -166,12 +180,19 @@ fun CustomButtonSingleSelection(
 @Preview
 @Composable
 private fun CustomCardOnboardingPreview() {
-    CustomCardOnboarding()
+    CustomCardOnboarding(
+        onSkip = {},
+        onContinue = {}
+    )
 }
 
 
 @Preview
 @Composable
 private fun OnboardingScreenPreview() {
-    OnboardingScreen(modifier = Modifier.fillMaxSize())
+    OnboardingScreen(
+        modifier = Modifier.fillMaxSize(),
+        onSkip = {},
+        onContinue = {}
+    )
 }
