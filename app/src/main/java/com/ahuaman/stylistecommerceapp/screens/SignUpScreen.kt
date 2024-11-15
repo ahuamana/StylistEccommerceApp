@@ -1,6 +1,7 @@
 package com.ahuaman.stylistecommerceapp.screens
 
 import android.widget.Space
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -33,7 +34,10 @@ import com.ahuaman.stylistecommerceapp.R
 import com.ahuaman.stylistecommerceapp.components.CustomTextFieldWithIcon
 
 @Composable
-fun SignUpScreen() {
+fun SignUpScreen(
+    onBackPressed: () -> Unit,
+    onSignUpCompleted: () -> Unit
+) {
 
     val painter = painterResource(id = R.drawable.ic_arrow_left)
     var isChecked by remember { mutableStateOf(false) }
@@ -46,7 +50,9 @@ fun SignUpScreen() {
         //header
         Column(modifier = Modifier.fillMaxWidth()) {
             Icon(
-                modifier = Modifier.padding(start = 20.dp, top = 20.dp),
+                modifier = Modifier.padding(start = 20.dp, top = 20.dp).clickable(
+                    onClick = onBackPressed
+                ),
                 painter = painter, contentDescription = null,
                 tint = Color.Black)
             Text(
@@ -110,7 +116,7 @@ fun SignUpScreen() {
                 modifier = Modifier
                     .fillMaxWidth(),
                 shape = RoundedCornerShape(0.dp),
-                onClick = { /*TODO*/ }) {
+                onClick = { onSignUpCompleted() }) {
                 Text(text = "Sign Up", modifier = Modifier.padding(top = 20.dp, bottom = 20.dp))
             }
         }
@@ -122,5 +128,12 @@ fun SignUpScreen() {
 @Preview
 @Composable
 fun SignUpScreenPrev() {
-    SignUpScreen()
+    SignUpScreen(
+        onBackPressed = {
+            //TODO
+        },
+        onSignUpCompleted = {
+            //TODO
+        }
+    )
 }

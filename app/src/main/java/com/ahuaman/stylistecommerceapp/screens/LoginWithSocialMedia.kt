@@ -1,6 +1,9 @@
 package com.ahuaman.stylistecommerceapp.screens
 
+import android.util.Log
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -16,6 +19,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
@@ -28,7 +32,10 @@ import androidx.compose.ui.unit.sp
 import com.ahuaman.stylistecommerceapp.R
 
 @Composable
-fun LoginWithSocialMedia() {
+fun LoginWithSocialMedia(
+    onClickCreateAccount: () -> Unit,
+    onClickSignIn: () -> Unit
+) {
 
     val painter = painterResource(id = com.ahuaman.stylistecommerceapp.R.drawable.ic_arrow_left)
 
@@ -38,10 +45,12 @@ fun LoginWithSocialMedia() {
     ) {
         //header
         Column(modifier = Modifier.fillMaxWidth()) {
+
             Icon(
-                modifier = Modifier.padding(start = 20.dp, top = 20.dp),
+                modifier = Modifier.padding(start = 20.dp, top = 20.dp).alpha(0.0f),
                 painter = painter, contentDescription = null,
                 tint = Color.Black)
+
             Text(
                 modifier = Modifier.align(Alignment.CenterHorizontally),
                 text = "Let’s Get Started",
@@ -116,7 +125,12 @@ fun LoginWithSocialMedia() {
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(top = 20.dp, bottom = 20.dp),
+                    .padding(top = 20.dp, bottom = 20.dp)
+                    .clickable(
+                        onClick = {
+                            onClickSignIn()
+                        }
+                    ),
                 horizontalArrangement = Arrangement.Center, verticalAlignment = Alignment.CenterVertically) {
                 Text(text = "Already have an account?", color = Color(0xFF8F959E))
                 Text(text = " Signin", fontWeight = FontWeight(600))
@@ -126,7 +140,9 @@ fun LoginWithSocialMedia() {
                 modifier = Modifier
                     .fillMaxWidth(),
                 shape = RoundedCornerShape(0.dp),
-                onClick = { /*TODO*/ }) {
+                onClick = {
+                    onClickCreateAccount()
+                }) {
                 Text(text = "Create an Account", modifier = Modifier.padding(top = 20.dp, bottom = 20.dp))
             }
         }
@@ -136,5 +152,12 @@ fun LoginWithSocialMedia() {
 @Preview
 @Composable
 fun LoginWithSocialMediaPrev() {
-    LoginWithSocialMedia()
+    LoginWithSocialMedia(
+        onClickCreateAccount = {
+            Log.d("LoginWithSocialMedia", "Create Account")
+        },
+        onClickSignIn = {
+            Log.d("LoginWithSocialMedia", "Sign In")
+        }
+    )
 }

@@ -13,7 +13,11 @@ import com.ahuaman.stylistecommerceapp.R
 import com.ahuaman.stylistecommerceapp.screens.DashboardScreen
 import com.ahuaman.stylistecommerceapp.screens.FavoriteScreenSEA
 import com.ahuaman.stylistecommerceapp.screens.HomeScreenSEA
+import com.ahuaman.stylistecommerceapp.screens.LoginWithSocialMedia
+import com.ahuaman.stylistecommerceapp.screens.OnboardingScreen
+import com.ahuaman.stylistecommerceapp.screens.SignUpScreen
 import com.ahuaman.stylistecommerceapp.screens.SplashScreen
+import com.ahuaman.stylistecommerceapp.screens.WelcomeScreen
 import kotlinx.serialization.Serializable
 
 @Composable
@@ -29,13 +33,67 @@ fun RootNavigation(
         composable<RootScreens.SplashScreen> {
             SplashScreen(
                 onTimeout = {
-                    controller.navigate(RootScreens.DashboardScreen)
+                    controller.popBackStack(RootScreens.SplashScreen, inclusive = true)
+                    controller.navigate(RootScreens.LoginWithSocialMedias)
                 }
             )
         }
+        composable<RootScreens.LoginWithSocialMedias> {
+            LoginWithSocialMedia(
+                onClickCreateAccount = {
+                    controller.navigate(RootScreens.CreateAccountScreen)
+                },
+                onClickSignIn = {
+                    controller.navigate(RootScreens.SignInScreen)
+                }
+            )
+        }
+
+        composable<RootScreens.SignInScreen> {
+            WelcomeScreen(
+                onBackPressed = {
+                    controller.popBackStack()
+                },
+                onLoginSuccess = {
+                    controller.navigate(RootScreens.OnboardingScreen) {
+                        popUpTo(RootScreens.LoginWithSocialMedias) { inclusive = true }
+                    }
+                }
+            )
+        }
+
+        composable<RootScreens.CreateAccountScreen> {
+            SignUpScreen(
+                onBackPressed = {
+                    controller.popBackStack()
+                },
+                onSignUpCompleted = {
+                    controller.navigate(RootScreens.OnboardingScreen) {
+                        popUpTo(RootScreens.LoginWithSocialMedias) { inclusive = true }
+                    }
+                }
+            )
+        }
+
+        composable<RootScreens.OnboardingScreen> {
+            OnboardingScreen(
+                onContinue = {
+                    controller.navigate(RootScreens.DashboardScreen) {
+                        popUpTo(RootScreens.OnboardingScreen) { inclusive = true }
+                    }
+                },
+                onSkip = {
+                    controller.navigate(RootScreens.DashboardScreen) {
+                        popUpTo(RootScreens.OnboardingScreen) { inclusive = true }
+                    }
+                }
+            )
+        }
+
         composable<RootScreens.DashboardScreen> {
             DashboardScreen()
         }
+
     }
 }
 
@@ -86,5 +144,15 @@ sealed class RootScreens {
     @Serializable
     data object SplashScreen : RootScreens()
     @Serializable
+    data object LoginWithSocialMedias : RootScreens()
+    @Serializable
+    data object SignInScreen : RootScreens()
+    @Serializable
+    data object CreateAccountScreen : RootScreens()
+    @Serializable
+    data object OnboardingScreen : RootScreens()
+    @Serializable
     data object DashboardScreen : RootScreens()
+
+
 }
