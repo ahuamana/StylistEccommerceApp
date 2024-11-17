@@ -23,10 +23,14 @@ import androidx.compose.ui.unit.dp
 import com.ahuaman.stylistecommerceapp.R
 
 @Composable
-fun CustomTopBar(modifier: Modifier = Modifier) {
+fun CustomTopBar(
+    modifier: Modifier = Modifier,
+    iconMenu: Int = R.drawable.ic_menu_dashboard,
+    iconBag: Int = R.drawable.ic_menu_bag
+) {
 
-    val imageMenu = painterResource(id = R.drawable.ic_menu_dashboard)
-    val imageBag = painterResource(id = R.drawable.ic_menu_bag)
+    val imageMenu = painterResource(id = iconMenu)
+    val imageBag = painterResource(id = iconBag)
 
     Row(
         modifier = modifier.fillMaxWidth(),

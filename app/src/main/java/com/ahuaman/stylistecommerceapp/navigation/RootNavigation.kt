@@ -91,7 +91,15 @@ fun RootNavigation(
         }
 
         composable<RootScreens.DashboardScreen> {
-            DashboardScreen()
+            DashboardScreen(
+                onClickItem = {
+                    controller.navigate(RootScreens.HomeDetailsScreen)
+                }
+            )
+        }
+
+        composable<RootScreens.HomeDetailsScreen> {
+            Text(text = "Home Details Screen", modifier = modifier)
         }
 
     }
@@ -99,13 +107,13 @@ fun RootNavigation(
 
 
 @Composable
-fun NavigationDashboard(modifier: Modifier = Modifier, controller: NavHostController) {
+fun NavigationDashboard(modifier: Modifier = Modifier, controller: NavHostController, onClickItem: () -> Unit){
     NavHost(
         navController = controller,
         startDestination = DashboardScreens.HomeScreen
     ) {
         composable<DashboardScreens.HomeScreen> {
-            HomeScreenSEA(modifier = modifier)
+            HomeScreenSEA(modifier = modifier, onClickItem = onClickItem)
         }
 
         composable<DashboardScreens.FavoriteScreen> {
@@ -153,6 +161,8 @@ sealed class RootScreens {
     data object OnboardingScreen : RootScreens()
     @Serializable
     data object DashboardScreen : RootScreens()
+    @Serializable
+    data object HomeDetailsScreen : RootScreens()
 
 
 }

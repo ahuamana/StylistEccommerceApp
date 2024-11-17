@@ -2,6 +2,7 @@ package com.ahuaman.stylistecommerceapp.components
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -39,12 +40,16 @@ import com.ahuaman.stylistecommerceapp.domain.ItemShop
 fun CustomItemShop(
     modifier: Modifier = Modifier,
     itemShop: ItemShop,
+    onClickItem: () -> Unit
 ) {
     Column(
         modifier = modifier
             .defaultMinSize(minHeight = 200.dp)
             .padding(end = 16.dp, bottom = 16.dp, start = 16.dp, top = 0.dp)
-            .fillMaxWidth(),
+            .fillMaxWidth()
+            .clickable(
+                onClick = {onClickItem() }
+            ),
     ){
 
         Box(
@@ -115,7 +120,7 @@ private fun CustomItemShopPrev() {
         title = "Adidas",
         price = 100.0
     )
-    CustomItemShop(itemShop = itemShop)
+    CustomItemShop(itemShop = itemShop, onClickItem = {})
 }
 
 
@@ -130,7 +135,8 @@ private fun ListItemShopPrev() {
     ) {
          items(list) { item ->
             CustomItemShop(
-                itemShop = item
+                itemShop = item,
+                onClickItem = {}
             )
         }
     }
