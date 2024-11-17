@@ -1,7 +1,5 @@
 package com.ahuaman.stylistecommerceapp.screens
 
-import android.widget.Space
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -43,7 +41,10 @@ import com.ahuaman.stylistecommerceapp.data.MockListCategory
 import com.ahuaman.stylistecommerceapp.data.MockListItemShop
 
 @Composable
-fun HomeScreenSEA(modifier: Modifier = Modifier) {
+fun HomeScreenSEA(
+    modifier: Modifier = Modifier,
+    onClickItem: () -> Unit
+) {
 
     var inputText by remember { mutableStateOf("") }
 
@@ -184,7 +185,8 @@ fun HomeScreenSEA(modifier: Modifier = Modifier) {
         ) {
             items(list) { item ->
                 CustomItemShop(
-                    itemShop = item
+                    itemShop = item,
+                    onClickItem = onClickItem
                 )
             }
         }
@@ -195,5 +197,7 @@ fun HomeScreenSEA(modifier: Modifier = Modifier) {
 @Preview
 @Composable
 private fun HomeScreenPrev() {
-    HomeScreenSEA()
+    HomeScreenSEA(
+        onClickItem = {}
+    )
 }

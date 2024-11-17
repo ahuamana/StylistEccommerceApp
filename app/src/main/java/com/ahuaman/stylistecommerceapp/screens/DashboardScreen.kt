@@ -28,11 +28,12 @@ import androidx.navigation.compose.rememberNavController
 import com.ahuaman.stylistecommerceapp.components.CustomTopBar
 import com.ahuaman.stylistecommerceapp.navigation.DashboardScreens
 import com.ahuaman.stylistecommerceapp.navigation.NavigationDashboard
-import com.ahuaman.stylistecommerceapp.navigation.RootScreens
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun DashboardScreen(modifier: Modifier = Modifier, controller: NavHostController = rememberNavController()) {
+fun DashboardScreen(modifier: Modifier = Modifier,
+                    controller: NavHostController = rememberNavController(),
+                    onClickItem: () -> Unit) {
 
     val items = DashboardScreens.screens
     var selectedItemMenu by remember { mutableIntStateOf(0) }
@@ -74,6 +75,7 @@ fun DashboardScreen(modifier: Modifier = Modifier, controller: NavHostController
             NavigationDashboard(
                 controller = controller,
                 modifier = modifier.padding(innerPadding),
+                onClickItem = onClickItem
             )
         }
     )
@@ -82,5 +84,7 @@ fun DashboardScreen(modifier: Modifier = Modifier, controller: NavHostController
 @Preview
 @Composable
 private fun DashboardScreenPrev() {
-    DashboardScreen()
+    DashboardScreen(
+        onClickItem = {}
+    )
 }
